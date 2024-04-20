@@ -4,6 +4,7 @@
  */
 package com.mycompany.lab1;
 
+
 /**
  *
  * @author Student
