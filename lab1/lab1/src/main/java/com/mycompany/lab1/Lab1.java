@@ -17,6 +17,19 @@ public class Lab1 {
         Question4 array = new Question4();
         array.Input();
         System.out.println(array.SumEvenNumber());
+        Question5 array2 = new Question5();
+        array2.InputArrayList();
+        System.out.println(array2.Contain());
+        System.out.println(array2.AddElement());
+        System.out.println(array2.DublicateElement());
+        System.out.println(array2.DublicateElementRemove());
+        Question6 a = new Question6();
+        a.Input();
+        System.out.println(a.StringLength());
+        System.out.println(a.CountNumberOfWord());
+        System.out.println(a.Concatenate());
+        
+        
     }
    
 }
