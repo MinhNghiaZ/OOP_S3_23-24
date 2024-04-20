@@ -12,6 +12,7 @@ public class Lab1 {
 
     public static void main(String[] args) {
         System.out.println(new Question1(102).SumFirstLastDigit());
+        System.out.println(new Question2(123,456,789).MinNumber());
     }
    
 }
