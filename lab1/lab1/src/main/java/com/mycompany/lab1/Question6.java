@@ -45,12 +45,29 @@ public class Question6 {
             return 0;
         } else {
             if (count == 0) {
-                return count++;
+                return ++count;
 
             } else {
                 return count+1;
             }
 
         }
+    }
+    public String Concatenate(){
+        System.out.println("Enter String to concatenate");
+        String a2 = sc.nextLine();
+        String a3 = (a+" "+a2);
+        return a3;
+        
+        
+    }
+    public boolean palindromeCheck(){
+        for(int i=0;i<(a.length()/2);i++){
+            int k=a.length()-(i+1);
+            if(a.charAt(i)!=a.charAt(k)){
+                return false;
+            }
+        }
+        return true;
     }
 }
