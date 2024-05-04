@@ -85,9 +85,9 @@ public class Bank {
 
     public void TransferMoney() {
 
-        System.out.println("Input account Number: ");
+        System.out.println("Input your account Number: ");
         int accNumber = sc.nextInt();
-        System.out.println("Account to transfer");
+        System.out.println("Account number to transfer");
         int accNumber2 = sc.nextInt();
         System.out.println("Input Money: ");
         Double money = sc.nextDouble();

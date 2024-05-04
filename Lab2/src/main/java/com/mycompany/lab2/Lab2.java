@@ -23,13 +23,16 @@ public class Lab2 {
 //        c1.MinusComplex(c2).OutputComplex();
 //        c1.MultiComplex(c2).OutputComplex();
 //        c1.DivideComplex(c2).OutputComplex();
-        Bank bank = new Bank();
-        bank.Input();
-        bank.Output();
-        bank.DepositAccount();
-        bank.WithDrawAccount();
-        bank.TransferMoney();
-        bank.Output();
+//        Bank bank = new Bank();
+//        bank.Input();
+//        bank.Output();
+//        bank.DepositAccount();
+//        bank.WithDrawAccount();
+//        bank.TransferMoney();
+//        bank.Output();
+          Manager manage = new Manager();
+          manage.InputList();
+          manage.OutputSalary();
 
     }
 }
