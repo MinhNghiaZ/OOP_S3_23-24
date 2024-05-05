@@ -33,6 +33,8 @@ public class Lab2 {
           Manager manage = new Manager();
           manage.InputList();
           manage.OutputSalary();
+          manage.OutputHighest();
+          manage.sortDecending();
 
     }
 }

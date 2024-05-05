@@ -86,7 +86,8 @@ public class Employee {
         System.out.println("employee year of service: "+yearOfService);
         System.out.println("employee salary coefficient: "+salaryEff);
         System.out.println("employee basic salary: "+basicSalary);
-        System.out.println("Salary: "+SalaryCalculate());
+        System.out.println("salary: "+SalaryCalculate());
+        System.out.println();
         
         
     }
