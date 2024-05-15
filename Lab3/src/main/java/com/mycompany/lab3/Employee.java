@@ -4,6 +4,7 @@
  */
 package com.mycompany.lab3;
 
+
 import java.util.Scanner;
 
 /**
@@ -84,6 +85,7 @@ public abstract class Employee {
         System.out.print("enter phone number");
         phone = sc.nextLine();
     }
+    
     public abstract String getInfo();
     public abstract float getPayment();
 

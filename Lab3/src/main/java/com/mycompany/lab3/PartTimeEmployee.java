@@ -5,6 +5,8 @@
 package com.mycompany.lab3;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 /**
@@ -66,17 +68,75 @@ public class PartTimeEmployee extends Employee {
         payRate = sc.nextInt();
 
     }
+    public String OutputPartTimeEmployee() {
+        StringBuilder sb = new StringBuilder();
+        for (Employee i : PartTimeList) {
+            sb.append("ID: "+i.getEmployeeId() + " ").append("Full name: "+i.getEmployeeName() + " ").append("Year of Birth: "+i.getYearOfBirth() + " ").append("Address: "+i.getAddress() + " ").append("Phone: "+i.getPhone() + " ").append("Payment: "+i.getPayment()).append("\n");
+        }
+        return sb.toString();
+
+    }
+    public void printParttime(Employee i){
+        StringBuilder sb = new StringBuilder();
+        sb.append(i.getEmployeeId() + " ").append(i.getEmployeeName() + " ").append(i.getYearOfBirth() + " ").append(i.getAddress() + " ").append(i.getPhone() + " ").append(i.getPayment()).append("\n");
+        System.out.println(sb);
+    }
+    static Comparator<Employee> compareID = (Employee o1, Employee o2) -> o1.getEmployeeId().compareTo(o2.getEmployeeId());
+    static Comparator<Employee> comparePayment = (Employee o1,Employee o2) -> (int) (o1.getPayment() - o2.getPayment());
+    public void SearchByID(String ID) {
+        int index = Collections.binarySearch(PartTimeList, new PartTimeEmployee(0,0,ID, "", 0, "", ""), compareID);
+        if (index == -1) {
+            System.out.println("none");
+        } else {
+            printParttime(PartTimeList.get(index));
+            
+        }
+
+    }
+    public void DeleteByID(String ID) {
+        int index = Collections.binarySearch(PartTimeList, new PartTimeEmployee(0,0,ID, "", 0, "", ""), compareID);
+        if (index == -1) {
+            System.out.println("not found");
+        } else {
+            PartTimeList.remove(index);
+            
+        }
+
+    }
+    public void EditbyID(String ID) {
+        int index = Collections.binarySearch(PartTimeList, new PartTimeEmployee(0,0,ID, "", 0, "", ""), compareID);
+        if (index == -1) {
+            System.out.println("not found");
+        } else {
+            String n = PartTimeList.get(index).getEmployeeId();
+            PartTimeList.get(index).InputEmployee();
+            PartTimeList.get(index).setEmployeeId(n);
+            
+        }
+
+    }
+    public void SearchbyPayment(float min,float max){
+        for(Employee e:PartTimeList){
+            if(e.getPayment()>=min&&e.getPayment()<=max){
+                printParttime(e);
+            }
+        }
+    }
+    public void sortEmployee(){
+        PartTimeList.sort(comparePayment);
+    }
+    
 
     
 
     @Override
     public String getInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return OutputPartTimeEmployee();
     }
 
     @Override
     public float getPayment() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return workingHour*payRate;
     }
     
 }

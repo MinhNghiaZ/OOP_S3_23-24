@@ -5,6 +5,8 @@
 package com.mycompany.lab3;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 /**
@@ -54,21 +56,76 @@ public class FullTimeEmployee extends Employee {
         salary = sc.nextFloat();
 
     }
-    public void OputFullTimeEmployee(){
+    
+    public String OutputFullTimeEmployee() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getEmployeeId).append(" ");
+        for (Employee i : FullTimeList) {
+            sb.append("ID: "+i.getEmployeeId() + " ").append("Full name: "+i.getEmployeeName() + " ").append("Year of Birth: "+i.getYearOfBirth() + " ").append("Address: "+i.getAddress() + " ").append("Phone: "+i.getPhone() + " ").append("Payment: "+i.getPayment()).append("\n");
+        }
+        return sb.toString();
+
     }
+    public void printFulltime(Employee i){
+        StringBuilder sb = new StringBuilder();
+        sb.append(i.getEmployeeId() + " ").append(i.getEmployeeName() + " ").append(i.getYearOfBirth() + " ").append(i.getAddress() + " ").append(i.getPhone() + " ").append(i.getPayment()).append("\n");
+        System.out.println(sb);
+    }
+    static Comparator<Employee> compareID = (Employee o1, Employee o2) -> o1.getEmployeeId().compareTo(o2.getEmployeeId());
+    static Comparator<Employee> comparePayment = ((Employee o1,Employee o2) -> (int) (o1.getPayment() - o2.getPayment()));
+    public void SearchByID(String ID) {
+        int index = Collections.binarySearch(FullTimeList, new FullTimeEmployee(ID, "", 0, "", ""), compareID);
+        if (index == -1) {
+            System.out.println("none");
+        } else {
+            printFulltime(FullTimeList.get(index));
+            
+        }
+
+    }
+    public void DeleteByID(String ID) {
+        int index = Collections.binarySearch(FullTimeList, new FullTimeEmployee(ID, "", 0, "", ""), compareID);
+        if (index == -1) {
+            System.out.println("not found");
+        } else {
+            FullTimeList.remove(index);
+            
+        }
+
+    }
+    public void EditbyID(String ID) {
+        int index = Collections.binarySearch(FullTimeList, new FullTimeEmployee(ID, "", 0, "", ""), compareID);
+        if (index == -1) {
+            System.out.println("not found");
+        } else {
+            String n = FullTimeList.get(index).getEmployeeId();
+            FullTimeList.get(index).InputEmployee();
+            FullTimeList.get(index).setEmployeeId(n);
+            
+        }
+
+    }
+    public void SearchbyPayment(float min,float max){
+        for(Employee e:FullTimeList){
+            if(e.getPayment()>=min&&e.getPayment()<=max){
+                printFulltime(e);
+            }
+        }
+    }
+    public void sortEmployee(){
+        FullTimeList.sort(comparePayment);
+    }
+    
+    
 
     @Override
     public String getInfo() {
-        
-        return sb.toString();
+        return OutputFullTimeEmployee();
 
     }
 
     @Override
     public float getPayment() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return salary;
     }
 
 }
