@@ -32,13 +32,18 @@ public class CollegeStudent extends Student {
     public void setExamScore(double examScore) {
         this.examScore = examScore;
     }
-    public void InputCollegeStudent(){
+    @Override
+    public void InputStudent(){
         Scanner sc = new Scanner(System.in);
         super.InputStudent();
         System.out.println("exam score: ");
         examScore = sc.nextDouble();
     }
-    
+    @Override
+    public void printStudent(){
+        super.printStudent();
+        System.out.println("exam score: "+examScore);
+    }
     
     @Override
     public boolean Graduation() {

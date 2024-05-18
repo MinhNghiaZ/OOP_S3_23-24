@@ -11,6 +11,7 @@ import java.util.Scanner;
  * @author Student
  */
 public class UniversityStudent extends Student {
+
     private String thesisName;
     private double thesisScore;
 
@@ -27,7 +28,6 @@ public class UniversityStudent extends Student {
 
     public UniversityStudent() {
     }
-    
 
     public String getThesisName() {
         return thesisName;
@@ -44,7 +44,9 @@ public class UniversityStudent extends Student {
     public void setThesisScore(double thesisScore) {
         this.thesisScore = thesisScore;
     }
-    public void InputUniStudent(){
+
+    @Override
+    public void InputStudent() {
         Scanner sc = new Scanner(System.in);
         super.InputStudent();
         sc.nextLine();
@@ -52,14 +54,19 @@ public class UniversityStudent extends Student {
         thesisName = sc.nextLine();
         System.out.println("Student thesis score: ");
         thesisScore = sc.nextDouble();
-        
+
+    }
+
+    @Override
+    public void printStudent() {
+        super.printStudent();
+        System.out.println("Student thesis Name: " + thesisName);
+        System.out.println("Student thesis score: " + thesisScore);
     }
 
     @Override
     public boolean Graduation() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
-    
+
 }

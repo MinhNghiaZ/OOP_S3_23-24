@@ -4,6 +4,8 @@
  */
 package com.mycompany.lab4;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -72,19 +74,34 @@ public abstract class Student {
         score = sc.nextInt();
         
     }
+    public void printStudent(){
+        System.out.println("Student Number: "+studentNum);
+        System.out.println("Student Full Name: "+fullName);
+        System.out.println("Student Credit: "+credit);
+        System.out.println("Student score: "+score);
+    }
     public void addCollegeStudent(){
         CollegeStudent c = new CollegeStudent();
-        c.InputCollegeStudent();
+        c.InputStudent();
         sList.add(c);
     }
     public void addUniStudent(){
         UniversityStudent u = new UniversityStudent();
-        u.InputUniStudent();
+        u.InputStudent();
         sList.add(u);
     }
-    public void removeStudent(){
-        
+    static Comparator<Student> compareID = (Student o1, Student o2) -> o1.getStudentNum().compareTo(o2.getStudentNum());
+    public void removeStudent(String ID){
+        int index = Collections.binarySearch(sList, new CollegeStudent(1.1,ID,"",0,1.1), compareID);
+        sList.remove(index);
     }
+    public void OutputStudent(){
+        for(var k:sList){
+            k.printStudent();
+        }
+    }
+    
+    
     public abstract boolean Graduation();
         
     
