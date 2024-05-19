@@ -11,6 +11,7 @@ import java.util.Scanner;
  * @author Student
  */
 public class CollegeStudent extends Student {
+
     private double examScore;
 
     public CollegeStudent(double examScore) {
@@ -32,22 +33,26 @@ public class CollegeStudent extends Student {
     public void setExamScore(double examScore) {
         this.examScore = examScore;
     }
+
     @Override
-    public void InputStudent(){
+    public void InputStudent() {
         Scanner sc = new Scanner(System.in);
         super.InputStudent();
         System.out.println("exam score: ");
         examScore = sc.nextDouble();
     }
+
     @Override
-    public void printStudent(){
+    public void printStudent() {
         super.printStudent();
-        System.out.println("exam score: "+examScore);
+        System.out.println("exam score: " + examScore);
+        System.out.println();
     }
-    
+
     @Override
     public boolean Graduation() {
-        return true;
+        return this.getCredit() >= 100 && this.getScore() >= 5 && this.getExamScore() >= 5;
+
     }
-    
+
 }

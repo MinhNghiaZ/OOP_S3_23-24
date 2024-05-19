@@ -49,9 +49,8 @@ public class UniversityStudent extends Student {
     public void InputStudent() {
         Scanner sc = new Scanner(System.in);
         super.InputStudent();
-        sc.nextLine();
         System.out.println("Student thesis Name: ");
-        thesisName = sc.nextLine();
+        thesisName = sc.next();
         System.out.println("Student thesis score: ");
         thesisScore = sc.nextDouble();
 
@@ -62,11 +61,13 @@ public class UniversityStudent extends Student {
         super.printStudent();
         System.out.println("Student thesis Name: " + thesisName);
         System.out.println("Student thesis score: " + thesisScore);
+        System.out.println();
     }
 
     @Override
     public boolean Graduation() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.getCredit() >= 150 && this.getScore() >= 5 && this.getThesisScore() >= 5;
+
     }
 
 }
