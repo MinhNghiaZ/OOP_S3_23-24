@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * @author ASUS
  */
 public class StudentMange {
-
+    
     public StudentMange() {
     }
     
@@ -40,7 +40,7 @@ public class StudentMange {
             System.out.println("Error Write file");
         }
     }
-
+    
     public void ReadFile() {
         try {
             FileInputStream f = new FileInputStream("student.dat");
@@ -56,63 +56,45 @@ public class StudentMange {
             System.out.println("Error Read File");
         }
     }
-    public void WriteFileResult() {
+    
+    public void WriteFileResult(Student s) {
         try {
             FileOutputStream f = new FileOutputStream("result.dat");
             ObjectOutputStream oStream = new ObjectOutputStream(f);
-            for (Student s : sList) {
-                oStream.writeObject(s);
-            }
+            oStream.writeObject(s);
             oStream.close();
         } catch (Exception e) {
             System.out.println("Error Write file");
         }
     }
-
-    public void ReadFileResult() {
-        try {
-            FileInputStream f = new FileInputStream("result.dat");
-            ObjectInputStream inStream = new ObjectInputStream(f);
-            Student st = null;
-            while ((st = (Student) inStream.readObject()) != null) {
-                sList.add(st);
-            }
-            inStream.close();
-        } catch (ClassNotFoundException e) {
-            System.out.println("Class not found");
-        } catch (IOException e) {
-            System.out.println("Error Read File");
-        }
-    }
     
-
     public void addCollegeStudent() {
         CollegeStudent c = new CollegeStudent();
         c.InputStudent();
         sList.add(c);
-
+        
     }
-
+    
     public void addUniStudent() {
         UniversityStudent u = new UniversityStudent();
         u.InputStudent();
         sList.add(u);
     }
     static Comparator<Student> compareID = (Student o1, Student o2) -> o1.getStudentNum().compareTo(o2.getStudentNum());
-
+    
     public void removeStudent(String ID) {
         int index = Collections.binarySearch(sList, new CollegeStudent(1.1, ID, "", 0, 1.1), compareID);
         if (index != -1) {
             sList.remove(index);
         }
     }
-
+    
     public void OutputStudent() {
         for (var k : sList) {
             k.printStudent();
         }
     }
-
+    
     public void GraduationStudent() {
         int count = 0;
         for (var k : sList) {
@@ -130,19 +112,20 @@ public class StudentMange {
             return 1;
         }
         return o1.getStudentNum().compareTo(o2.getStudentNum());
-
+        
     };
-
+    
     public void SearchStudent(String Name) {
         for (Student s : sList) {
             if (s.getFullName().contains(Name)) {
                 s.printStudent();
+                WriteFileResult(s);
             }
         }
     }
-
+    
     public void SortStudent() {
         sList.sort(Compare);
     }
-
+    
 }

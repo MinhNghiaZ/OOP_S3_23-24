@@ -56,13 +56,60 @@ public class Lab5 {
                     System.out.println("Enter Student Fullname to search: ");
                     String Name = sc.next();
                     s.SearchStudent(Name);
-                    s.WriteFileResult();
-                    s.ReadFileResult();
-                    s.OutputStudent();
             }
-            
+
         } while (choose != 8);
-        
+        ManageStaff staff = new ManageStaff();
+        staff.ReadFile();
+        staff.OutputStaff();
+        do {
+            System.out.println("1. Add a new Lecturers.");
+            System.out.println("2. Add a new TeachingAssistants.");
+            System.out.println("3. Add a new Researchers.");
+            System.out.println("4. Add a new Specialist.");
+            System.out.println("5. Find and Edit by Id.");
+            System.out.println("6. remove by Id.");
+            System.out.println("7. Calculate total salary of all Staff.");
+            System.out.println("8. Calculate total salary of all Staff by Type.");
+            System.out.println("9. Three HighestPaidStaff.");
+            System.out.println("10. Exit.");
+            System.out.print("Enter your choice: ");
+            choose = sc.nextInt();
+            switch (choose) {
+                case 1:
+                    staff.addLecturers();
+                    staff.WriteFile();
+                    break;
+                case 2:
+                    staff.addAssistants();
+                    staff.WriteFile();
+                    break;
+                case 3:
+                    staff.addResearchers();
+                    staff.WriteFile();
+                    break;
+                case 4:
+                    staff.addSpecialist();
+                    staff.WriteFile();
+                    break;
+                case 5:
+                    staff.FindEdit();
+                    break;
+                case 6:
+                    staff.Delete();
+                    break;
+                case 7:
+                    staff.CalculateTotalSalary();
+                    break;
+                case 8:
+                    staff.CalculateTotalSalaryByType();
+                    break;
+                case 9:
+                    staff.HighestPaid();
+                    break;
+            }
+
+        } while (choose != 10);
 
     }
 }
