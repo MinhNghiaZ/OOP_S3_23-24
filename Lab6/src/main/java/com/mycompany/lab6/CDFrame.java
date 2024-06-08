@@ -105,12 +105,8 @@ public class CDFrame extends JFrame {
             int year = Integer.parseInt(cdYear.getText());
             CD newCd = new CD(CDid,CDCollection,CDtype,CDtitle,price,year);
             newCd.addCD(newCd);
-            cdId.setText("");
-            cdTitle.setText("");
-            cdPrice.setText("");
-            cdYear.setText("");
             JOptionPane.showMessageDialog(null, "Success", "Message", JOptionPane.INFORMATION_MESSAGE);
-            
+            setVisible(false);
         });
         
         this.add(panel6);
