@@ -1,12 +1,14 @@
 package com.mycompany.lab7;
 
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author Student
@@ -54,9 +56,19 @@ public class CDStore extends javax.swing.JFrame {
         jPanel1.add(jButton1);
 
         jButton2.setText("Backup");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2);
 
         jButton3.setText("Restore");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3);
 
         jButton4.setText("Refresh");
@@ -68,6 +80,11 @@ public class CDStore extends javax.swing.JFrame {
         jPanel1.add(jButton4);
 
         jButton5.setText("Delete");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton5);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -84,6 +101,11 @@ public class CDStore extends javax.swing.JFrame {
         jPanel3.add(jTextField1);
 
         jButton7.setText("Search");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton7);
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
@@ -116,7 +138,7 @@ public class CDStore extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         AddNewCD addFrame = new AddNewCD();
         addFrame.setVisible(true);
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -128,13 +150,65 @@ public class CDStore extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) TableData.getModel();
         model.setRowCount(0);
         TableData.setModel(model);
-        for(var cd:newCD.getList()){
-            model.addRow(new Object[]{cd.getTitle(),cd.getCDCollection(),cd.getCDType(),cd.getPrice()} );
+        for (var cd : newCD.getList()) {
+            model.addRow(new Object[]{cd.getTitle(), cd.getCDCollection(), cd.getCDType(), cd.getPrice()});
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JFileChooser fc = new JFileChooser();
+        int result = fc.showSaveDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            CD saveCD = new CD();
+            String Filename = fc.getSelectedFile().toString();
+            if (!Filename.endsWith(".eiu")) {
+                Filename += ".eiu";
+            }
+            saveCD.WriteFile(Filename);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        JFileChooser fc = new JFileChooser();
+        int result = fc.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            CD restoreCD = new CD();
+            String Filename = fc.getSelectedFile().toString();
+            restoreCD.ReadFile(Filename);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int selected = TableData.getSelectedRow();
+        if (selected != -1) {
+            CD deleteCD = new CD();
+            deleteCD.DeleteID(selected);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        CD SearchCD = new CD();
+        ArrayList<CD> resultList = new ArrayList<>();
+        String tSearch = jComboBox1.getSelectedItem().toString();
+        String search = jTextField1.getText();
+        switch (tSearch) {
+            case "Title" -> resultList = new ArrayList<>(SearchCD.SearchByTitle(search));
+            case "Collection" -> resultList = new ArrayList<>(SearchCD.SearchByCollection(search));
+            case "Type" -> resultList = new ArrayList<>(SearchCD.SearchByType(search));
+            default -> {
+            }
+        }
+        DefaultTableModel model = (DefaultTableModel) TableData.getModel();
+        model.setRowCount(0);
+        TableData.setModel(model);
+        for (var cd : resultList) {
+            model.addRow(new Object[]{cd.getTitle(), cd.getCDCollection(), cd.getCDType(), cd.getPrice()});
+        }
+
+
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments

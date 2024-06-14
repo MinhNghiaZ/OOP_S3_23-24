@@ -4,8 +4,13 @@
  */
 package com.mycompany.lab7;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -14,7 +19,7 @@ import java.util.Scanner;
  *
  * @author Student
  */
-public class CD {
+public class CD implements Serializable {
 
     private String CDId;
     private String CDCollection;
@@ -84,7 +89,8 @@ public class CD {
     }
 
     static ArrayList<CD> CDList = new ArrayList();
-    Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
+
     public boolean addCD(CD newCD) {
         int index = Collections.binarySearch(CDList, new CD(newCD.getCDId(), "", "", "", 0, 0), compareID);
         if (index < 0) {
@@ -95,8 +101,39 @@ public class CD {
         }
 
     }
-    public ArrayList<CD> getList(){
+
+    public ArrayList<CD> getList() {
         return CDList;
+    }
+
+    public void WriteFile(String filename) {
+        try {
+            FileOutputStream f = new FileOutputStream(filename);
+            ObjectOutputStream oStream = new ObjectOutputStream(f);
+            for (CD s : CDList) {
+                oStream.writeObject(s);
+            }
+            oStream.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void ReadFile(String filename) {
+        try {
+            FileInputStream f = new FileInputStream(filename);
+            ObjectInputStream inStream = new ObjectInputStream(f);
+            CD st = null;
+            while ((st = (CD) inStream.readObject()) != null) {
+                CDList.clear();
+                CDList.add(st);
+            }
+            inStream.close();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void InputCD() {
@@ -134,70 +171,59 @@ public class CD {
     static Comparator<CD> compareID = (CD o1, CD o2) -> o1.getCDId().compareTo(o2.getCDId());
     static Comparator<CD> compareYear = (CD o1, CD o2) -> o1.getYear() - (o2.getYear());
 
-    public void SearchByTitle() {
-        System.out.println("enter title to search: ");
-        sc.nextLine();
-        String t = sc.nextLine();
+    public ArrayList<CD> SearchByTitle(String t) {
         boolean flag = true;
         ArrayList<CD> CDList2 = new ArrayList(CDList);
+        ArrayList<CD> CDList3 = new ArrayList();
         while (flag) {
             int index = Collections.binarySearch(CDList2, new CD("", "", "", t, 0, 0), compareTitle);
-            if (index == -1) {
-                System.out.println("none");
+            if (index < 0) {
                 flag = false;
             } else {
-                CDList2.get(index).printCD();
+                CDList3.add(CDList2.get(index));
                 CDList2.remove(index);
             }
         }
+        return CDList3;
 
     }
 
-    public void SearchByCollection() {
-        System.out.println("enter Collection to search: ");
-        String C = sc.nextLine();
+    public ArrayList<CD> SearchByCollection(String C) {
         boolean flag = true;
         ArrayList<CD> CDList2 = new ArrayList(CDList);
+        ArrayList<CD> CDList3 = new ArrayList();
         while (flag) {
             int index = Collections.binarySearch(CDList2, new CD("", C, "", "", 0, 0), compareCollection);
-            if (index == -1) {
-                System.out.println("none");
+            if (index < 0) {
                 flag = false;
             } else {
-                CDList2.get(index).printCD();
+                CDList3.add(CDList2.get(index));
                 CDList2.remove(index);
             }
         }
+        return CDList3;
 
     }
 
-    public void SearchByType() {
-        System.out.println("enter Type to search: ");
-        String type = sc.nextLine();
+    public ArrayList<CD> SearchByType(String type) {
         boolean flag = true;
         ArrayList<CD> CDList2 = new ArrayList(CDList);
+        ArrayList<CD> CDList3 = new ArrayList();
         while (flag) {
             int index = Collections.binarySearch(CDList2, new CD("", "", type, "", 0, 0), compareType);
-            if (index == -1) {
-                System.out.println("none");
+            if (index < 0) {
                 flag = false;
             } else {
-                CDList2.get(index).printCD();
+                CDList3.add(CDList2.get(index));
                 CDList2.remove(index);
             }
         }
+        return CDList3;
 
     }
 
-    public void DeleteID() {
-        System.out.println("enter ID to delete: ");
-        String ID = sc.nextLine();
-        int index = Collections.binarySearch(CDList, new CD(ID, "", "", "", 0, 0), compareID);
-        if (index == -1) {
-            System.out.println("none");
-        } else {
-            CDList.remove(index);
-        }
+    public void DeleteID(int index) {
+        CDList.remove(index);
 
     }
 

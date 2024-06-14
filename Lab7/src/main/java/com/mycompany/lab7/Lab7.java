@@ -7,7 +7,7 @@ package com.mycompany.lab7;
  *
  * @author Student
  */
-public class Lab7 {
+public class Lab7  {
 
     public static void main(String[] args) {
         CDStore store = new CDStore();
